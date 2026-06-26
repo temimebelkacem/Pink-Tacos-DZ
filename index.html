@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pink Tacos DZ</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- استيراد خطوط فاخرة وعصرية بجمالية هندسية نقية -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Arabic', sans-serif;
+            background-color: #0A0A0B;
+            color: #F3F4F6;
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0A0B;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FF007F;
+            border-radius: 10px;
+        }
+        .table-cursor { cursor: grab; }
+        .table-cursor:active { cursor: grabbing; }
+    </style>
+</head>
+<body class="relative min-h-screen select-none overflow-hidden">
+
+    <!-- 1. شاشة الدخول الاحترافية الهندسية -->
+    <div id="preloader" class="fixed inset-0 z-[99] flex items-center justify-center overflow-hidden">
+        <div id="shutter-left" class="absolute inset-y-0 left-0 w-1/2 bg-[#0A0A0B] border-r border-white/5"></div>
+        <div id="shutter-right" class="absolute inset-y-0 right-0 w-1/2 bg-[#0A0A0B] border-l border-white/5"></div>
+        
+        <div id="loader-centerpiece" class="relative z-10 text-center flex flex-col items-center justify-center">
+            <div id="taco-neon-logo" class="w-28 h-28 mb-6 drop-shadow-[0_0_30px_rgba(255,0,127,0.65)]">
+                <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-current text-pink-500" stroke-width="3" stroke-linecap="round">
+                    <path d="M15,65 C15,30 85,30 85,65 Z" />
+                    <path d="M15,65 C30,72 70,72 85,65" stroke-dasharray="3 3" />
+                    <circle cx="35" cy="45" r="3" class="fill-pink-500" />
+                    <circle cx="50" cy="40" r="4" class="fill-purple-500" />
+                    <circle cx="65" cy="48" r="2.5" class="fill-pink-400" />
+                </svg>
+            </div>
+            <div class="w-40 h-[2px] bg-gray-900 rounded-full overflow-hidden">
+                <div id="loader-bar" class="w-0 h-full bg-gradient-to-r from-pink-500 to-purple-600"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- كرات الإضاءة المحيطية الخلفية للتأثير البارالكس -->
+    <div id="blob-1" class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-pink-600/10 blur-[150px] pointer-events-none"></div>
+    <div id="blob-2" class="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-purple-600/10 blur-[180px] pointer-events-none"></div>
+
+    <!-- 2. شريط التنقل العائم الفخم بأسلوب آبل سترايب المتطور -->
+    <nav class="nav-animate fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl z-50 glass-card rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.7),0_0_40px_rgba(255,0,127,0.03)] opacity-0">
+        <div class="px-6 h-16 flex items-center justify-between">
+            <a href="#" class="text-xl font-extrabold tracking-wider text-white hover:text-pink-500 transition-colors">
+                PINK<span class="text-pink-500">.</span>TACOS
+            </a>
+            <div class="hidden md:flex items-center space-x-8 space-x-reverse text-xs font-medium tracking-wide text-gray-300">
+                <a href="#" class="hover:text-pink-500 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-pink-500 hover:after:w-full after:transition-all after:duration-300">الرئيسية</a>
+                <a href="#menu" class="hover:text-pink-500 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-pink-500 hover:after:w-full after:transition-all after:duration-300">القائمة الحصرية</a>
+                <a href="#testimonials" class="hover:text-pink-500 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-pink-500 hover:after:w-full after:transition-all after:duration-300">آراء العملاء</a>
+                <a href="#spatial-booking" class="hover:text-pink-500 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-pink-500 hover:after:w-full after:transition-all after:duration-300">حجز الطاولات</a>
+            </div>
+            <a href="#spatial-booking" class="px-5 py-2 rounded-full bg-white text-black font-semibold text-xs tracking-wide hover:bg-pink-500 hover:text-white transition-all duration-300">
+                اطلب الآن
+            </a>
+        </div>
+    </nav>
+
+    <!-- قسم الهيرو الترحيبي الفاخر -->
+    <section class="relative min-h-screen pt-40 pb-16 flex items-center px-6 max-w-7xl mx-auto z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+            <div class="space-y-6 text-center lg:text-right opacity-0 hero-animate">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-400 text-xs font-semibold uppercase tracking-widest">
+                    من افضل المطاعم في الجزائر
+                </span>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.25]">
+                    ليس مجرد تاكوس،<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-pink-400 to-purple-500 drop-shadow-[0_0_35px_rgba(255,0,127,0.2)]">
+                        بل تجربة بصرية وشغف!
+                    </span>
+                </h2>
+                <p class="text-gray-400 text-sm md:text-base max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
+                    نجمع بين نكهات التاكوس العالمية المبتكرة والجرأة البصرية اللامتناهية. محضر كلياً بخلطات "بينك التاكوس" السرية الغنية.
+                </p>
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                    <a href="#menu" class="w-full sm:w-auto text-center px-8 py-4 rounded-xl bg-gradient-to-r from-pink-600 to-pink-500 text-white font-semibold text-sm shadow-lg hover:shadow-pink-500/30 transition-all duration-300">استكشف المنيو السري</a>
+                    <a href="#spatial-booking" class="w-full sm:w-auto text-center px-8 py-4 rounded-xl border border-white/10 text-white font-medium text-sm hover:bg-white/5 transition-all">حجز طاولة VIP</a>
+                </div>
+            </div>
+
+            <div class="flex justify-center lg:justify-end perspective-1000 opacity-0 hero-animate">
+                <div id="tilt-card" class="relative w-full max-w-[380px] aspect-[4/5] rounded-3xl overflow-hidden glass-card p-4 cursor-grab active:cursor-grabbing hover:shadow-[0_0_50px_rgba(255,0,127,0.2)] transition-shadow duration-500">
+                    <div class="relative w-full h-full rounded-2xl overflow-hidden bg-zinc-900">
+                        <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80" alt="Pink Tacos" class="w-full h-full object-cover pointer-events-none" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent flex flex-col justify-end p-6">
+                            <h4 class="text-xl font-bold text-white">جراند تاكوس كرانش</h4>
+                            <p class="text-pink-400 text-xs font-medium mt-1">الاكثر طلبا هذا الاسبوع </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم قائمة الطعام -->
+    <section id="menu" class="py-24 px-6 max-w-7xl mx-auto relative z-10">
+        <div class="text-center space-y-4 mb-16 section-header opacity-0">
+            <h3 class="text-3xl md:text-4xl font-bold text-white">الاصناف</h3>
+            <p class="text-gray-400 max-w-md mx-auto text-xs font-light">مجموعة حصرية ومختارة بعناية لأقوى النكهات المتفجرة</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- كرت صنف 1 -->
+            <div class="menu-card glass-card rounded-2xl p-5 group transition-all duration-500 hover:-translate-y-2 opacity-0">
+                <div class="overflow-hidden rounded-xl aspect-[4/3] bg-zinc-900">
+                    <img src="https://images.unsplash.com/photo-1613514785940-daed07799d85?auto=format&fit=crop&w=600&q=80" alt="Tacos" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                </div>
+                <div class="mt-5 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-lg font-bold text-white group-hover:text-pink-500 transition-colors">تاكوس النيون المقرمش</h4>
+                        <span class="text-base font-bold text-pink-400 font-mono">850 DA</span>
+                    </div>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed">دجاج مقرمش متبل ببهارات المكسيك الحارة مع جبنة شيدر غنية.</p>
+                </div>
+            </div>
+            <!-- كرت صنف 2 -->
+            <div class="menu-card glass-card rounded-2xl p-5 group transition-all duration-500 hover:-translate-y-2 opacity-0">
+                <div class="overflow-hidden rounded-xl aspect-[4/3] bg-zinc-900">
+                    <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=600&q=80" alt="Tacos" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                </div>
+                <div class="mt-5 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-lg font-bold text-white group-hover:text-pink-500 transition-colors">بينك تاكوس اللحم الفاخر</h4>
+                        <span class="text-base font-bold text-pink-400 font-mono">950 DA</span>
+                    </div>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed">لحم بقري مفروم ومطهو ببطء مع صلصة بينك السرية المتوهجة.</p>
+                </div>
+            </div>
+            <!-- كرت صنف 3 -->
+            <div class="menu-card glass-card rounded-2xl p-5 group transition-all duration-500 hover:-translate-y-2 opacity-0">
+                <div class="overflow-hidden rounded-xl aspect-[4/3] bg-zinc-900">
+                    <img src="https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?auto=format&fit=crop&w=600&q=80" alt="Tacos" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                </div>
+                <div class="mt-5 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-lg font-bold text-white group-hover:text-pink-500 transition-colors">تاكوس بركان الجبن</h4>
+                        <span class="text-base font-bold text-pink-400 font-mono">1100 DA</span>
+                    </div>
+                    <p class="text-gray-400 text-xs font-light leading-relaxed">مزيج متفجر من جبن الموزاريلا والشيدر السائل الحار.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم آراء العملاء -->
+    <section id="testimonials" class="py-24 px-6 max-w-7xl mx-auto relative z-10 border-t border-white/5">
+        <div class="text-center space-y-4 mb-16 section-header opacity-0">
+            <h3 class="text-3xl md:text-4xl font-bold text-white">آراء ضيوفنا</h3>
+            <p class="text-gray-400 max-w-md mx-auto text-xs font-light">تقييمات من زوار فرعنا وتجربتهم </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="testimonial-card glass-card p-8 rounded-2xl flex flex-col justify-between h-56 opacity-0 hover:border-pink-500/20 transition-all duration-300">
+                <p class="text-gray-400 text-xs font-light leading-relaxed">"أفضل تجربة تاكوس في المدينة دون منازع. المذاق مقرمش وغني بالجبن، والجو العام ساحر ومتفرد للغاية."</p>
+                <div class="flex items-center space-x-3 space-x-reverse pt-4 border-t border-white/5">
+                    <div class="w-10 h-10 rounded-full bg-pink-500/10 text-pink-500 font-bold flex items-center justify-center text-xs">أم.ع</div>
+                    <h5 class="text-sm font-bold text-white">أمين علوي</h5>
+                </div>
+            </div>
+            <div class="testimonial-card glass-card p-8 rounded-2xl flex flex-col justify-between h-56 opacity-0 hover:border-pink-500/20 transition-all duration-300">
+                <p class="text-gray-400 text-xs font-light leading-relaxed">"الخلطة السرية لديهم متفجرة ولها هوية متفردة. تصميم المكان ونظام التفاعل يجعلك تشعر بالتميز."</p>
+                <div class="flex items-center space-x-3 space-x-reverse pt-4 border-t border-white/5">
+                    <div class="w-10 h-10 rounded-full bg-purple-500/10 text-purple-400 font-bold flex items-center justify-center text-xs">ن.ب</div>
+                    <h5 class="text-sm font-bold text-white">نجوى بناني</h5>
+                </div>
+            </div>
+            <div class="testimonial-card glass-card p-8 rounded-2xl flex flex-col justify-between h-56 opacity-0 hover:border-pink-500/20 transition-all duration-300">
+                <p class="text-gray-400 text-xs font-light leading-relaxed">"سرعة الخدمة مذهلة والتاكوس يصل ساخناً ومليئاً بالتفاصيل المقرمشة الزكية. أنصح به بقوة!"</p>
+                <div class="flex items-center space-x-3 space-x-reverse pt-4 border-t border-white/5">
+                    <div class="w-10 h-10 rounded-full bg-pink-500/10 text-pink-500 font-bold flex items-center justify-center text-xs">ر.ت</div>
+                    <h5 class="text-sm font-bold text-white">رضا التازي</h5>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- نظام حجز الطاولات التفاعلي المطور بالسحب والإفلات -->
+    <section id="spatial-booking" class="py-24 px-6 max-w-7xl mx-auto relative z-10 border-t border-white/5">
+        <div class="text-center space-y-4 mb-16 section-header opacity-0">
+            <h3 class="text-3xl md:text-4xl font-bold text-white">حجز المقاعد </h3>
+            <p class="text-gray-400 text-xs font-light">اسحب الطاولة التي تناسبك وأفلتها بالمنطقة المشعة بالأسفل لتخصيص طلبك</p>
+        </div>
+        <div class="w-full max-w-3xl mx-auto min-h-[400px] glass-card rounded-3xl p-8 flex flex-col justify-between border border-white/10 shadow-2xl">
+            <div id="drop-zone" class="w-full h-36 border border-dashed border-white/20 rounded-2xl flex flex-col items-center justify-center bg-white/[0.01] transition-all duration-300 relative">
+                <div id="drop-text" class="text-xs tracking-widest text-gray-400 uppercase font-light">قم بسحب وإسقاط الطاولة هنا للتأكيد</div>
+                <div id="success-check" class="hidden text-emerald-400 text-3xl mt-2"><i class="fa-solid fa-circle-check"></i></div>
+            </div>
+            
+            <div class="border-t border-white/5 pt-8 flex flex-wrap items-center justify-center gap-6 relative z-20">
+                <div class="table-cursor draggable-table w-24 h-24 rounded-full bg-zinc-900 border border-white/10 flex flex-col items-center justify-center text-white p-2 select-none" data-table-id="01" data-table-name="طاولة النيون VIP">
+                    <i class="fa-solid fa-chair text-sm text-pink-500 mb-1"></i>
+                    <span class="text-[10px] font-bold">طاولة 01</span>
+                </div>
+                <div class="table-cursor draggable-table w-24 h-24 rounded-full bg-zinc-900 border border-white/10 flex flex-col items-center justify-center text-white p-2 select-none" data-table-id="02" data-table-name="الطاولة العائلية الكبرى">
+                    <i class="fa-solid fa-chair text-sm text-purple-400 mb-1"></i>
+                    <span class="text-[10px] font-bold">طاولة 02</span>
+                </div>
+                <div class="table-cursor draggable-table w-24 h-24 rounded-full bg-zinc-900 border border-white/10 flex flex-col items-center justify-center text-white p-2 select-none" data-table-id="03" data-table-name="الطاولة الثنائية الرومانسية">
+                    <i class="fa-solid fa-chair text-sm text-pink-400 mb-1"></i>
+                    <span class="text-[10px] font-bold">طاولة 03</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- مودال الحجز الزجاجي المفعّل بالكامل -->
+        <div id="booking-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-xl z-[99] flex items-center justify-center p-4">
+            <div class="glass-card max-w-lg w-full p-8 rounded-2xl space-y-6 border border-pink-500/20 shadow-2xl scale-95 opacity-0 transition-all duration-500" id="modal-container">
+                <div class="text-center">
+                    <h4 class="text-xl font-bold text-white" id="modal-title">تخصيص المقاعد </h4>
+                    <p class="text-xs text-pink-400 mt-1 font-light">يرجى تسجيل بيانات الضيف لتثبيت الحجز في الأنظمة</p>
+                </div>
+                <form class="space-y-4" onsubmit="event.preventDefault(); finishReservation();">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-[10px] font-semibold text-gray-400 block mb-2">اسم الضيف بالكامل</label>
+                            <input type="text" required id="input-name" class="w-full h-11 rounded-xl bg-black/40 border border-white/10 px-4 text-xs text-white focus:outline-none focus:border-pink-500 transition-colors" placeholder="الاسم الشخصي" />
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-semibold text-gray-400 block mb-2">عدد الأفراد</label>
+                            <input type="number" min="1" max="15" required id="input-count" class="w-full h-11 rounded-xl bg-black/40 border border-white/10 px-4 text-xs text-white focus:outline-none focus:border-pink-500 transition-colors" placeholder="4" />
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-[10px] font-semibold text-gray-400 block mb-2">رقم الهاتف للتواصل</label>
+                            <input type="tel" required id="input-phone" class="w-full h-11 rounded-xl bg-black/40 border border-white/10 px-4 text-xs text-white focus:outline-none focus:border-pink-500 transition-colors" placeholder="0XXXXXXXXX" />
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-semibold text-gray-400 block mb-2"> الولاية / المدينة التي انت قادم(ت) منها</label>
+                            <input type="text" required id="input-state" class="w-full h-11 rounded-xl bg-black/40 border border-white/10 px-4 text-xs text-white focus:outline-none focus:border-pink-500 transition-colors" placeholder="الجزائر العاصمة" />
+                        </div>
+                    </div>
+                    <div class="flex gap-4 pt-2">
+                        <button type="button" onclick="closeBookingModal()" class="w-1/2 py-3 rounded-xl border border-white/10 text-xs text-gray-400 hover:bg-white/5 transition-colors">إلغاء</button>
+                        <button type="submit" class="w-1/2 py-3 rounded-xl bg-gradient-to-r from-pink-600 to-pink-500 text-white font-bold text-xs tracking-wider shadow-lg">تأكيد حجز المقعد</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- مركز البلاغات وجودة الخدمات الإدارية -->
+    <section id="report-center" class="py-24 px-6 max-w-7xl mx-auto relative z-10 border-t border-white/5 opacity-0">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-5 space-y-4 text-center lg:text-right">
+                <h3 class="text-2xl md:text-3xl font-bold text-white">مركز بلاغات الجودة والمشاكل</h3>
+                <p class="text-gray-400 text-xs font-light leading-relaxed">هل واجهت مشكلة تقنية بالمنصة أو تأخيراً في تسليم طلبك؟ أخبرنا بأدق التفاصيل الفنية والتشغيلية فوراً لنعالجها برمجياً أو إدارياً.</p>
+            </div>
+            <div class="lg:col-span-7 glass-card p-6 rounded-2xl border border-white/5">
+                <form class="space-y-4" onsubmit="event.preventDefault(); alert('تم استلام تقريرك بنجاح، سيتم الفحص والحل خلال دقائق معدودة.'); this.reset();">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" required class="h-11 rounded-xl bg-black/40 border border-white/10 px-4 text-xs text-white focus:outline-none focus:border-pink-500" placeholder="نوع المشكلة (تقنية / توصيل / جودة)" />
+                        <input type="tel" required class="h-11 rounded-xl bg-black/40 border border-white/10 px-4 text-xs text-white focus:outline-none focus:border-pink-500" placeholder="رقم المتابعة الفورية" />
+                    </div>
+                    <textarea required class="w-full h-24 rounded-xl bg-black/40 border border-white/10 p-4 text-xs text-white focus:outline-none focus:border-pink-500 resize-none" placeholder="اكتب تفاصيل الخلل هنا لمساعدتنا..."></textarea>
+                    <button class="w-full h-11 rounded-xl bg-white/5 border border-white/10 text-white font-medium text-xs tracking-wider hover:bg-pink-600 hover:border-transparent transition-all duration-300">رفع التقرير لغرفة العمليات</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر الزجاجي الأنيق -->
+    <footer class="border-t border-white/5 pt-16 pb-10 px-6 max-w-7xl mx-auto relative z-10 space-y-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-right">
+            <div class="space-y-3">
+                <h5 class="text-[10px] font-bold text-pink-500 uppercase tracking-widest">الموقع والفرع الرئيسي</h5>
+                <p class="text-xs text-gray-300 font-light leading-relaxed">
+                    <i class="fa-solid fa-location-dot text-pink-500 ml-2"></i>
+                    حي سيدي يحيى، حيدرة،<br>الجزائر العاصمة، الجزائر
+                </p>
+            </div>
+            <div class="space-y-3">
+                <h5 class="text-[10px] font-bold text-purple-400 uppercase tracking-widest">خط الاتصال والحجوزات</h5>
+                <p class="text-xs text-gray-300 font-mono tracking-wide">
+                    <i class="fa-solid fa-phone text-purple-400 ml-2"></i>
+                    +213 21 00 11 22
+                </p>
+                <p class="text-[10px] text-gray-500 font-light">متاح طوال أيام الأسبوع من 12:00 ظهراً حتى 02:00 صباحاً</p>
+            </div>
+            <div class="space-y-3">
+                <h5 class="text-[10px] font-bold text-pink-500 uppercase tracking-widest">تابع تجربتنا البصرية</h5>
+                <div class="flex items-center justify-center md:justify-start gap-4 pt-1">
+                    <a href="#" class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-pink-500 hover:bg-pink-500/10 transition-all duration-300">
+                        <i class="fa-brands fa-instagram text-xs"></i>
+                    </a>
+                    <a href="#" class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-purple-500 hover:bg-purple-500/10 transition-all duration-300">
+                        <i class="fa-brands fa-telegram text-xs"></i>
+                    </a>
+                    <a href="#" class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-pink-400 hover:bg-pink-400/10 transition-all duration-300">
+                        <i class="fa-brands fa-whatsapp text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-500 gap-4 pt-8 border-t border-white/[0.03]">
+            <p>© 2026 Pink Tacos DZ. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // أنميشن شعار التحميل
+        const logoRotation = gsap.to("#taco-neon-logo", { rotation: 360, duration: 2.2, repeat: -1, ease: "none" });
+
+        // تايم لاين فتح الشاشة والترحيب
+        const mainTL = gsap.timeline();
+        mainTL.to("#loader-bar", { width: "100%", duration: 1.2, ease: "power2.inOut" })
+              .to("#loader-centerpiece", { opacity: 0, scale: 0.9, duration: 0.3, onComplete: () => logoRotation.kill() })
+              .to("#shutter-left", { xPercent: -100, duration: 0.8, ease: "power4.inOut" })
+              .to("#shutter-right", { xPercent: 100, duration: 0.8, ease: "power4.inOut" }, "-=0.8")
+              .to("#preloader", { display: "none" })
+              .to("body", { 
+                  overflowY: "auto", 
+                  onComplete: () => {
+                      ScrollTrigger.refresh();
+                  }
+              })
+              .fromTo(".nav-animate", { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, "-=0.2")
+              .fromTo(".hero-animate", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out" }, "-=0.4");
+
+        // --- تأثيرات ومؤثرات التمرير الفاخرة ---
+        gsap.to("#blob-1", { scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 1 }, y: 150 });
+        gsap.to("#blob-2", { scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 1 }, y: -150 });
+
+        gsap.utils.toArray(".section-header").forEach(header => {
+            gsap.fromTo(header, 
+                { opacity: 0, y: 30, scale: 0.95 },
+                { scrollTrigger: { trigger: header, start: "top 85%" }, opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power3.out" }
+            );
+        });
+
+        gsap.fromTo(".menu-card", 
+            { opacity: 0, y: 50 },
+            {
+                scrollTrigger: { trigger: "#menu", start: "top 75%" },
+                opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: "power2.out"
+            }
+        );
+
+        gsap.fromTo(".testimonial-card", 
+            { opacity: 0, y: 40 },
+            {
+                scrollTrigger: { trigger: "#testimonials", start: "top 75%" },
+                opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out"
+            }
+        );
+
+        gsap.fromTo("#report-center", 
+            { opacity: 0, y: 40 },
+            {
+                scrollTrigger: { trigger: "#report-center", start: "top 80%" },
+                opacity: 1, y: 0, duration: 0.7, ease: "power3.out"
+            }
+        );
+
+        // تأثير الإمالة ثلاثي الأبعاد لكرت الهيرو
+        const tiltCard = document.getElementById('tilt-card');
+        if (tiltCard) {
+            tiltCard.addEventListener('mousemove', (e) => {
+                const { left, top, width, height } = tiltCard.getBoundingClientRect();
+                const x = (e.clientX - left) - width / 2;
+                const y = (e.clientY - top) - height / 2;
+                gsap.to(tiltCard, { rotationY: x * 0.08, rotationX: -y * 0.08, transformPerspective: 1000, duration: 0.3 });
+            });
+            tiltCard.addEventListener('mouseleave', () => {
+                gsap.to(tiltCard, { rotationY: 0, rotationX: 0, duration: 0.5 });
+            });
+        }
+
+        // --- محرك السحب والإفلات الكامل ---
+        const dropZone = document.getElementById('drop-zone');
+        const dropText = document.getElementById('drop-text');
+        const successCheck = document.getElementById('success-check');
+        const bookingModal = document.getElementById('booking-modal');
+        const modalContainer = document.getElementById('modal-container');
+        const modalTitle = document.getElementById('modal-title');
+
+        let activeTableName = "";
+        let activeTableId = "";
+
+        Draggable.create(".draggable-table", {
+            type: "x,y",
+            edgeResistance: 0.65,
+            onDrag: function() {
+                if (this.hitTest(dropZone, "40%")) {
+                    dropZone.classList.add('bg-pink-500/10', 'border-pink-500');
+                } else {
+                    dropZone.classList.remove('bg-pink-500/10', 'border-pink-500');
+                }
+            },
+            onDragEnd: function() {
+                if (this.hitTest(dropZone, "40%")) {
+                    activeTableName = this.target.getAttribute('data-table-name');
+                    activeTableId = this.target.getAttribute('data-table-id');
+                    
+                    gsap.to(this.target, { opacity: 0, scale: 0.4, duration: 0.3 });
+                    
+                    dropText.innerText = "تم اختيار " + activeTableName;
+                    dropText.classList.add('text-pink-400');
+                    successCheck.classList.remove('hidden');
+                    
+                    modalTitle.innerText = `حجز ${activeTableName} (رقم ${activeTableId})`;
+                    
+                    setTimeout(() => {
+                        bookingModal.classList.remove('hidden');
+                        gsap.fromTo(modalContainer, { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "power3.out" });
+                    }, 300);
+                } else {
+                    gsap.to(this.target, { x: 0, y: 0, duration: 0.4, ease: "power3.out" });
+                }
+            }
+        });
+
+        function closeBookingModal() {
+            gsap.to(modalContainer, { scale: 0.95, opacity: 0, duration: 0.3, ease: "power2.in", onComplete: () => {
+                bookingModal.classList.add('hidden');
+                const tables = document.querySelectorAll('.draggable-table');
+                tables.forEach(t => gsap.to(t, { x: 0, y: 0, opacity: 1, scale: 1, duration: 0.3 }));
+                
+                dropZone.classList.remove('bg-pink-500/10', 'border-pink-500');
+                dropText.innerText = "قم بسحب وإسقاط الطاولة هنا للتأكيد";
+                dropText.classList.remove('text-pink-400');
+                successCheck.classList.add('hidden');
+            }});
+        }
+
+        function finishReservation() {
+            const name = document.getElementById('input-name').value;
+            alert(`اكتمل حجزك الفاخر بنجاح يا ${name}!\nالمنظومة ثبتت لك: ${activeTableName}.\nننتظر تشريفك الفخم الليلة في فرعنا.`);
+            closeBookingModal();
+        }
+    </script>
+</body>
+</html>
